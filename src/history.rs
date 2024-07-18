@@ -11,7 +11,7 @@ static ENDPOINT: &str = "https://www.twse.com.tw/exchangeReport/STOCK_DAY";
 const FIELD_COUNT: usize = 9;
 
 /// Trading summary of a single day
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct DailyData {
     /// Be noted that `date` is `UTC+8`

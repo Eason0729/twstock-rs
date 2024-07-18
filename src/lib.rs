@@ -45,6 +45,8 @@ pub enum Error {
     MarketClosed,
 }
 
+#[derive(Debug, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 /// Stock identifier and its variant
 pub enum Stock {
     /// Live stock

@@ -12,9 +12,9 @@ fn default_json_number() -> Value {
 }
 
 /// realtime frame data from TWSE
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-pub struct FrameData {
+pub struct RealTimeData {
     pub price: f64,
     pub volume: u64,
     pub history_volume: u64,
@@ -32,7 +32,7 @@ pub struct FrameData {
 
 /// Raw frame data from TWSE
 #[derive(Debug, Serialize, Deserialize)]
-pub struct RawFrameData {
+struct FrameData {
     #[serde(rename = "z")]
     price: Value,
     #[serde(rename = "tv")]
@@ -59,10 +59,10 @@ pub struct RawFrameData {
     limit_down_price: Value,
 }
 
-impl TryFrom<RawFrameData> for FrameData {
+impl TryFrom<FrameData> for RealTimeData {
     type Error = Error;
 
-    fn try_from(value: RawFrameData) -> Result<Self, Self::Error> {
+    fn try_from(value: FrameData) -> Result<Self, Self::Error> {
         macro_rules! parse {
             ($f:ident,$t:ty) => {
                 paste::paste! {
@@ -87,7 +87,7 @@ impl TryFrom<RawFrameData> for FrameData {
             NaiveDate::parse_from_str(&parse!(recent_trading_date, u64).to_string(), "%Y%m%d")
                 .map_err(|_| Error::IncompatibleApi)?;
 
-        Ok(FrameData {
+        Ok(RealTimeData {
             price: parse!(price, f64),
             volume: parse!(volume, u64),
             history_volume: parse!(history_volume, u64),
@@ -126,7 +126,7 @@ impl Client {
 
 impl RealTime<'_> {
     /// fetch realtime data from TWSE
-    pub async fn fetch(&self, stock: Stock) -> Result<FrameData, Error> {
+    pub async fn fetch(&self, stock: Stock) -> Result<RealTimeData, Error> {
         match self
             .fetch_raw(std::iter::once(stock))
             .await?
@@ -141,17 +141,17 @@ impl RealTime<'_> {
     pub async fn fetch_batch(
         &self,
         stocks: impl Iterator<Item = Stock>,
-    ) -> Result<Vec<FrameData>, Error> {
+    ) -> Result<Vec<RealTimeData>, Error> {
         self.fetch_raw(stocks)
             .await?
             .into_iter()
-            .map(FrameData::try_from)
+            .map(RealTimeData::try_from)
             .collect()
     }
     async fn fetch_raw(
         &self,
         stocks: impl Iterator<Item = Stock>,
-    ) -> Result<Vec<RawFrameData>, Error> {
+    ) -> Result<Vec<FrameData>, Error> {
         let stocks = stocks
             .map(|stock| match stock {
                 Stock::Live(id) => format!("tse_{}.tw", id),
@@ -174,7 +174,7 @@ impl RealTime<'_> {
 
         let body = res.bytes().await?;
         dbg!(&body);
-        match serde_json::from_slice::<MsgArray<RawFrameData>>(&body) {
+        match serde_json::from_slice::<MsgArray<FrameData>>(&body) {
             Ok(x) => Ok(x.array),
             Err(_) => {
                 let x: RawErrorMessage =
