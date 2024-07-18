@@ -1,6 +1,6 @@
 # twstock 台灣股市股票API🦀
 
-從[證券交易所 (TWSE)](https://www.twse.com.tw/zh/index.html)下在股票
+從 [證券交易所 (TWSE)](https://www.twse.com.tw/zh/index.html) 下載股票資訊
 
 ## Getting started
 
