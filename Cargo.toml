@@ -1,0 +1,35 @@
+[package]
+name = "twstock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde_json = "1.0.120"
+thiserror = "1.0.62"
+paste = "1.0.15"
+itertools = "0.13.0"
+
+[dependencies.reqwest]
+version = "0.12.5"
+features = ["http2"]
+default-features = false
+
+[dependencies.chrono]
+version = "0.4.38"
+features = ["serde"]
+
+[dependencies.serde]
+version = "1.0.204"
+features = ["derive"]
+
+[dev-dependencies.tokio]
+version = "1.38.1"
+features = ["macros","rt"]
+
+[features]
+default = ["default-tls"]
+serde = []
+default-tls = ["reqwest/default-tls"]
+native-tls = ["reqwest/native-tls"]
+native-tls-vendored = ["reqwest/native-tls-vendored"]
+rustls-tls = ["reqwest/rustls-tls"]
