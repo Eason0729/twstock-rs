@@ -10,8 +10,20 @@ use twstock::*;
 #[tokio::main]
 async fn main() {
     let client = Client::new();
-    let data = client.realtime().fetch(Stock::Live(2330)).await.unwrap();
-    assert_eq!(data.name, "台積電");
+    match client
+        .realtime()
+        .fetch(Stock {
+            kind: StockKind::Live,
+            code: 2330,
+        })
+        .await
+    {
+        Ok(x) => assert_eq!(x.name, "台積電"),
+        Err(err) => match err {
+            Error::MarketClosed => {}
+            _ => panic!("unexpected error: {:?}", err),
+        },
+    };
 }
 ```
 
