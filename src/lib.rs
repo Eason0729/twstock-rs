@@ -1,6 +1,10 @@
-//! Taiwan Stock Exchange (TWSE) API
+//! # Taiwan Stock Exchange (TWSE) API
 //!
-//! Example:
+//! `twstock` is a library for fetching data from the Taiwan Stock Exchange (TWSE) API.
+//! 
+//! Behind the scenes, it uses the reqwest crate to make HTTP requests to their server.
+//! 
+//! # Example:
 //! ```rust
 //! use twstock::*;
 //!
@@ -23,7 +27,7 @@
 //! }
 //! ```
 //!
-//! Features:
+//! # Features:
 //! - `serde`: Enable serde support
 //! - `native-tls`: Use the native-tls backend
 //! - `native-tls-vendored`: Use the native-tls backend with vendored OpenSSL
@@ -44,16 +48,17 @@ fn get_time_zone() -> chrono::FixedOffset {
 /// Error type that may occur when interacting with the TWSE API
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
-    #[error("reqwest error: {0}")]
+    #[error(transparent)]
     Reqwest(#[from] reqwest::Error),
     #[error("Rate limit exceeded")]
     RateLimitExceeded,
+    /// Incompatible API, the upstream API has changed
     #[error("incompatible upstream api")]
     IncompatibleApi,
     #[error("date does not exist")]
     DateDoesNotExist,
-    #[error("Error message from upstream: {0}")]
-    ErrorStatMessage(String),
+    #[error("Error message from upstream: `{0}`")]
+    StatMessage(String),
     #[error("market is closed")]
     MarketClosed,
 }

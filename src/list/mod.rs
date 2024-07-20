@@ -1,3 +1,8 @@
+//! TWSE list api
+//! 
+//! This module is technically not an API binding,
+//! it's a http client with custom parser to list currently tradable stocks.
+
 mod parser;
 
 use chrono::NaiveDate;
@@ -8,7 +13,9 @@ use crate::{Client, Error, Stock, StockKind};
 static ENDPOINT: &str = "https://isin.twse.com.tw/isin/C_public.jsp";
 
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
+/// Industry category
 pub enum Industry {
+    /// consumer electronics
     Electronic,
     Cement,
     Food,
@@ -42,14 +49,20 @@ impl From<&str> for Industry {
     }
 }
 
+/// Stock information
 #[derive(Debug, Clone, PartialEq, PartialOrd, Default)]
 pub struct StockInfo {
+    /// Stock identifier
     id: Stock,
+    /// chinese name abbreviation
     abbr: String,
+    /// first trading date
     release_date: NaiveDate,
+    /// industry category
     industry: Industry,
 }
 
+/// newtype wrapper for the [`Client`] facilitating list api
 pub struct List<'a>(&'a Client);
 
 impl Client {
@@ -59,6 +72,7 @@ impl Client {
 }
 
 impl List<'_> {
+    /// Fetch the list of currently tradable stocks
     pub async fn fetch(&self, kind: StockKind) -> Result<Vec<StockInfo>, Error> {
         let raw = self.fetch_raw(kind).await?;
         let parser = RawContent(&raw);

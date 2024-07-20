@@ -125,7 +125,10 @@ impl Client {
 }
 
 impl RealTime<'_> {
-    /// fetch realtime data from TWSE
+    /// Fetch realtime data from TWSE
+    /// 
+    /// Be noted that this endpoint is heavily rate-limited
+    /// (1 request per 3 seconds with some burst at time of writing)
     pub async fn fetch(&self, stock: Stock) -> Result<RealTimeData, Error> {
         match self
             .fetch_raw(std::iter::once(stock))
@@ -137,7 +140,7 @@ impl RealTime<'_> {
             None => Err(Error::IncompatibleApi),
         }
     }
-    /// fetch realtime data from TWSE in batch
+    /// Fetch realtime data from TWSE in batch
     pub async fn fetch_batch(
         &self,
         stocks: impl Iterator<Item = Stock>,
@@ -179,7 +182,7 @@ impl RealTime<'_> {
             Err(_) => {
                 let x: RawErrorMessage =
                     serde_json::from_slice(body.as_ref()).map_err(|_| Error::IncompatibleApi)?;
-                Err(Error::ErrorStatMessage(x.stat))
+                Err(Error::StatMessage(x.stat))
             }
         }
     }

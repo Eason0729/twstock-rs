@@ -1,5 +1,7 @@
 # twstock 台灣股市股票API🦀
 
+[![master](https://github.com/Eason0729/twstock-rs/actions/workflows/master.yml/badge.svg)](https://github.com/Eason0729/twstock-rs/actions/workflows/master.yml)
+
 從 [證券交易所 (TWSE)](https://www.twse.com.tw/zh/index.html) 下載股票資訊
 
 ## Getting started

@@ -173,7 +173,7 @@ impl History<'_> {
             Err(_) => {
                 let x: RawErrorMessage =
                     serde_json::from_slice(body.as_ref()).map_err(|_| Error::IncompatibleApi)?;
-                Err(Error::ErrorStatMessage(x.stat))
+                Err(Error::StatMessage(x.stat))
             }
         }
     }
