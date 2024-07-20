@@ -73,8 +73,9 @@ pub struct Stock {
 
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[repr(u8)]
 /// variant of stock
+/// 
+/// The number is intentionally set to match the value used in the upstream API
 pub enum StockKind {
     #[default]
     Live = 2,
