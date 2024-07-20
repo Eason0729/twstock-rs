@@ -15,15 +15,16 @@ const FIELD_COUNT: usize = 9;
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct DailyData {
     /// Be noted that `date` is `UTC+8`
-    date: NaiveDate,
-    volume: u64,
-    transaction_price: f64,
-    open_price: f64,
-    high_price: f64,
-    low_price: f64,
-    close_price: f64,
-    diff: f64,
-    transaction: u64,
+    pub date: NaiveDate,
+    pub volume: u64,
+    pub transaction_price: f64,
+    pub open_price: f64,
+    pub high_price: f64,
+    pub low_price: f64,
+    pub close_price: f64,
+    /// today close price - today start price
+    pub diff: f64,
+    pub transaction: u64,
 }
 
 enum Column {

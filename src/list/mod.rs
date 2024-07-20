@@ -1,5 +1,5 @@
 //! TWSE list api
-//! 
+//!
 //! This module is technically not an API binding,
 //! it's a http client with custom parser to list currently tradable stocks.
 
@@ -44,6 +44,7 @@ impl From<&str> for Industry {
             "鋼鐵工業" => Industry::Steel,
             "半導體業" => Industry::Semiconductor,
             "建材營造業" => Industry::Construction,
+            // FIXME: add more industries
             _ => Industry::Other(value.to_string()),
         }
     }
@@ -53,19 +54,20 @@ impl From<&str> for Industry {
 #[derive(Debug, Clone, PartialEq, PartialOrd, Default)]
 pub struct StockInfo {
     /// Stock identifier
-    id: Stock,
+    pub id: Stock,
     /// chinese name abbreviation
-    abbr: String,
+    pub abbr: String,
     /// first trading date
-    release_date: NaiveDate,
+    pub release_date: NaiveDate,
     /// industry category
-    industry: Industry,
+    pub industry: Industry,
 }
 
 /// newtype wrapper for the [`Client`] facilitating list api
 pub struct List<'a>(&'a Client);
 
 impl Client {
+    /// Get the list API client
     pub fn list(&self) -> List<'_> {
         List(self)
     }
@@ -100,7 +102,7 @@ mod test {
     use crate::StockKind;
 
     #[tokio::test]
-    #[ignore = "requires network, and contain large amount of data"]
+    #[ignore = "contain large amount of data"]
     async fn list() {
         let client = Client::new();
         let list = client.list();

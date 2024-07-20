@@ -126,7 +126,7 @@ impl Client {
 
 impl RealTime<'_> {
     /// Fetch realtime data from TWSE
-    /// 
+    ///
     /// Be noted that this endpoint is heavily rate-limited
     /// (1 request per 3 seconds with some burst at time of writing)
     pub async fn fetch(&self, stock: Stock) -> Result<RealTimeData, Error> {
