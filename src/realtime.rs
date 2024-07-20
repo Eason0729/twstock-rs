@@ -153,9 +153,9 @@ impl RealTime<'_> {
         stocks: impl Iterator<Item = Stock>,
     ) -> Result<Vec<FrameData>, Error> {
         let stocks = stocks
-            .map(|stock| match stock {
-                Stock::Live(id) => format!("tse_{}.tw", id),
-                Stock::OverTheCounter(id) => format!("otc_{}.tw", id),
+            .map(|stock| match stock.kind {
+                StockKind::Live => format!("tse_{}.tw", stock.code),
+                StockKind::OverTheCounter => format!("otc_{}.tw", stock.code),
             })
             .collect::<Vec<String>>()
             .join("|");
@@ -193,7 +193,14 @@ mod tests {
     #[tokio::test]
     async fn fetch() {
         let client = Client::new();
-        match client.realtime().fetch(Stock::Live(2330)).await {
+        match client
+            .realtime()
+            .fetch(Stock {
+                kind: StockKind::Live,
+                code: 2330,
+            })
+            .await
+        {
             Ok(x) => assert_eq!(x.name, "台積電"),
             Err(err) => match err {
                 Error::MarketClosed => {}
@@ -206,7 +213,10 @@ mod tests {
         let client = Client::new();
         let data = client
             .realtime()
-            .fetch_raw(std::iter::once(Stock::Live(2330)))
+            .fetch_raw(std::iter::once(Stock {
+                kind: StockKind::Live,
+                code: 2330,
+            }))
             .await
             .unwrap();
         dbg!(&data);

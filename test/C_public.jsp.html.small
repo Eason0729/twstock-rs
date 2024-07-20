@@ -1,0 +1,70 @@
+<html class=" odctsserm idc0_350">
+   <script type="text/javascript" id="__gaOptOutExtension">window["_gaUserPrefs"] = { ioo : function() { return true; } }</script>
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=Big5">
+      <link rel="stylesheet" href="http://isin.twse.com.tw/isin/style1.css" type="text/css">
+      <link href="data:text/css,%3Ais(%5Bid*%3D'google_ads_iframe'%5D%2C%5Bid*%3D'taboola-'%5D%2C.taboolaHeight%2C.taboola-placeholder%2C%23credential_picker_container%2C%23credentials-picker-container%2C%23credential_picker_iframe%2C%5Bid*%3D'google-one-tap-iframe'%5D%2C%23google-one-tap-popup-container%2C.google-one-tap-modal-div%2C%23amp_floatingAdDiv%2C%23ez-content-blocker-container)%20%7Bdisplay%3Anone!important%3Bmin-height%3A0!important%3Bheight%3A0!important%3B%7D" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+      <h2><strong><font class="h1">本國上市證券國際證券辨識號碼一覽表</font></strong></h2>
+      <h2>
+         <strong>
+            <font class="h1">
+               <center>最近更新日期:2024/07/18  </center>
+            </font>
+         </strong>
+      </h2>
+      <h2>
+         <font color="red">
+            <center>掛牌日以正式公告為準</center>
+         </font>
+      </h2>
+      <table align="center"></table>
+      <table class="h4" align="center" cellspacing="3" cellpadding="2" width="750" border="0">
+         <tbody>
+            <tr align="center">
+               <td bgcolor="#D5FFD5">有價證券代號及名稱 </td>
+               <td bgcolor="#D5FFD5">國際證券辨識號碼(ISIN Code)</td>
+               <td bgcolor="#D5FFD5">上市日</td>
+               <td bgcolor="#D5FFD5">市場別</td>
+               <td bgcolor="#D5FFD5">產業別</td>
+               <td bgcolor="#D5FFD5">CFICode</td>
+               <td bgcolor="#D5FFD5">備註</td>
+            </tr>
+            <tr>
+               <td bgcolor="#FAFAD2" colspan="7"><b> 股票 <b> </b></b></td>
+            </tr>
+            <tr>
+               <td bgcolor="#FAFAD2">2506　太設</td>
+               <td bgcolor="#FAFAD2">TW0002506003</td>
+               <td bgcolor="#FAFAD2">1980/02/02</td>
+               <td bgcolor="#FAFAD2">上市</td>
+               <td bgcolor="#FAFAD2">建材營造業</td>
+               <td bgcolor="#FAFAD2">ESVUFR</td>
+               <td bgcolor="#FAFAD2"></td>
+            </tr>
+            <tr>
+               <td bgcolor="#FAFAD2">2509　全坤建</td>
+               <td bgcolor="#FAFAD2">TW0002509007</td>
+               <td bgcolor="#FAFAD2">1988/05/20</td>
+               <td bgcolor="#FAFAD2">上市</td>
+               <td bgcolor="#FAFAD2">建材營造業</td>
+               <td bgcolor="#FAFAD2">ESVUFR</td>
+               <td bgcolor="#FAFAD2"></td>
+            </tr>
+            <tr>
+               <td bgcolor="#FAFAD2">2509　全坤建</td>
+               <td bgcolor="#FAFAD2">TW0002509007</td>
+               <td bgcolor="#FAFAD2">1988/05/20</td>
+               <td bgcolor="#FAFAD2">上市</td>
+               <td bgcolor="#FAFAD2">建材營造業</td>
+               <td bgcolor="#FAFAD2">ESVUFR</td>
+               <td bgcolor="#FAFAD2"></td>
+            </tr>
+         </tbody>
+      </table>
+      <font color="red">
+         <center>???P??H???????i????</center>
+      </font>
+   </body>
+</html>

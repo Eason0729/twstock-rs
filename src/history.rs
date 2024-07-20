@@ -158,7 +158,7 @@ impl History<'_> {
             .query(&[
                 ("response", "json"),
                 ("date", &date),
-                ("stockNo", &stock.id().to_string()),
+                ("stockNo", &stock.code.to_string()),
             ])
             .send()
             .await?;
@@ -184,14 +184,21 @@ mod tests {
     use chrono::Datelike;
 
     use super::*;
-    use crate::Stock;
+    use crate::{Stock, StockKind};
 
     #[tokio::test]
     async fn fetch() {
         let client = Client::new();
         let data = client
             .history()
-            .fetch(Month::January, 2021, Stock::Live(2330))
+            .fetch(
+                Month::January,
+                2021,
+                Stock {
+                    kind: StockKind::Live,
+                    code: 2330,
+                },
+            )
             .await
             .unwrap();
         for item in &data {
@@ -204,7 +211,14 @@ mod tests {
         let client = Client::new();
         let data = client
             .history()
-            .fetch_raw(Month::January, 2021, Stock::Live(2330))
+            .fetch_raw(
+                Month::January,
+                2021,
+                Stock {
+                    kind: StockKind::Live,
+                    code: 2330,
+                },
+            )
             .await
             .unwrap();
         assert_eq!(data.data.len(), 20);

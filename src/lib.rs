@@ -6,8 +6,20 @@
 //!
 //! async fn fetch() {
 //!     let client = Client::new();
-//!     let data = client.realtime().fetch(Stock::Live(2330)).await.unwrap();
-//!     assert_eq!(data.name, "台積電");
+//!     match client
+//!         .realtime()
+//!         .fetch(Stock {
+//!             kind: StockKind::Live,
+//!             code: 2330,
+//!         })
+//!         .await
+//!     {
+//!         Ok(x) => assert_eq!(x.name, "台積電"),
+//!         Err(err) => match err {
+//!             Error::MarketClosed => {}
+//!             _ => panic!("unexpected error: {:?}", err),
+//!         },
+//!     };
 //! }
 //! ```
 //!
@@ -20,6 +32,7 @@
 //! Don't forget to disable default features if you want to use a specific TLS backend.
 
 pub mod history;
+pub mod list;
 pub mod realtime;
 
 use reqwest::Client as HttpClient;
@@ -45,24 +58,22 @@ pub enum Error {
     MarketClosed,
 }
 
-#[derive(Debug, Hash)]
+#[derive(Debug, Hash, Clone, PartialEq, PartialOrd, Default)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 /// Stock identifier and its variant
-pub enum Stock {
-    /// Live stock
-    Live(u32),
-    /// Over-the-counter stock
-    OverTheCounter(u32),
+pub struct Stock {
+    pub kind: StockKind,
+    pub code: u32,
 }
 
-impl Stock {
-    /// Get the stock identifier
-    pub fn id(&self) -> u32 {
-        match self {
-            Stock::Live(id) => *id,
-            Stock::OverTheCounter(id) => *id,
-        }
-    }
+#[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[repr(u8)]
+/// variant of stock
+pub enum StockKind {
+    #[default]
+    Live = 2,
+    OverTheCounter = 4,
 }
 
 /// Client for fetching data from the Taiwan Stock Exchange (TWSE) API
