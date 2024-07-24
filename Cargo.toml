@@ -2,7 +2,12 @@
 name = "twstock"
 version = "0.1.0"
 edition = "2021"
-description = "a library for fetching data from the Taiwan Stock Exchange (TWSE) API"
+description = "API binding for fetching data from the Taiwan Stock Exchange (TWSE)"
+repository = "https://github.com/Eason0729/twstock-rs"
+exclude = ["test/*"]
+license = "MIT"
+keywords = ["finance", "twse", "api", "stock"]
+categories = ["api-bindings"]
 
 [dependencies]
 serde_json = "1.0.120"
