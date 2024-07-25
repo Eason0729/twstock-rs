@@ -1,6 +1,6 @@
 [package]
 name = "twstock"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "API binding for fetching data from the Taiwan Stock Exchange (TWSE)"
 repository = "https://github.com/Eason0729/twstock-rs"
