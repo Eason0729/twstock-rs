@@ -5,6 +5,8 @@
 
 mod parser;
 
+use std::fmt::Display;
+
 use chrono::NaiveDate;
 use parser::RawContent;
 
@@ -12,7 +14,7 @@ use crate::{Client, Error, Stock, StockKind};
 
 static ENDPOINT: &str = "https://isin.twse.com.tw/isin/C_public.jsp";
 
-#[derive(Debug, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Eq, Ord, Hash)]
 /// Industry category
 pub enum Industry {
     /// consumer electronics
@@ -30,6 +32,22 @@ pub enum Industry {
 impl Default for Industry {
     fn default() -> Self {
         Industry::Other("".to_string())
+    }
+}
+
+impl Display for Industry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", match self{
+            Industry::Electronic => "電子零組件業",
+            Industry::Cement => "水泥工業",
+            Industry::Food => "食品工業",
+            Industry::Car => "汽車工業",
+            Industry::Motor => "電機機械",
+            Industry::Steel => "鋼鐵工業",
+            Industry::Semiconductor => "半導體業",
+            Industry::Construction => "建材營造業",
+            Industry::Other(s) => s,
+        })
     }
 }
 

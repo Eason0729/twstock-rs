@@ -1,9 +1,11 @@
 # twstock 台灣股市股票API🦀
-
+    
+[![crate.io](https://img.shields.io/crates/v/twstock.svg)](https://crates.io/crates/twstock)
 [![master](https://github.com/Eason0729/twstock-rs/actions/workflows/master.yml/badge.svg)](https://github.com/Eason0729/twstock-rs/actions/workflows/master.yml)
 [![codecov](https://codecov.io/github/Eason0729/twstock-rs/graph/badge.svg?token=RPYP79BLCZ)](https://codecov.io/github/Eason0729/twstock-rs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-從 [證券交易所 (TWSE)](https://www.twse.com.tw/zh/index.html) 下載股票資訊
+API binding for fetching data from the [Taiwan Stock Exchange (TWSE)](https://www.twse.com.tw/zh/index.html)
 
 ## Getting started
 
@@ -33,3 +35,4 @@ async fn main() {
 ## 特別感謝
 
 [twstock(pypi)](https://github.com/mlouielu/twstock?tab=readme-ov-file): 給予API使用參考
+[使用證卷交易所API爬取股票資訊(hackmd文章)](https://hackmd.io/@aaronlife/python-ex-stock-by-api)
